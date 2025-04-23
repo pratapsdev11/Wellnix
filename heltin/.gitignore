@@ -22,7 +22,7 @@ build/
 *.jpg
 *.png
 *.pdf
-*.txt
+
 
 # Output directories
 outputs/
