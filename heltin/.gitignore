@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+*.env
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Media files
+*.jpg
+*.png
+*.pdf
+*.txt
+
+# Output directories
+outputs/
+uploads/
+
+# Static and template cache
+static/
+templates/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Python-specific
+*.pyo
+*.pyd
+*.whl
+
+# SageMaker Checkpointing patterns
+*.sagemaker-uploading
+*.sagemaker-uploaded
