@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Profile - Health-O-Meter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <h1 class="mb-4">Your Health Profile</h1>
+        
+        <form action="{{ url_for('health.profile') }}" method="post">
+            <div class="row g-3">
+                <!-- Basic Info -->
+                <div class="col-md-6">
+                    <h3>Basic Information</h3>
+                    
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="height_cm" class="form-label">Height (cm)</label>
+                        <input type="number" step="0.1" class="form-control" id="height_cm" name="height_cm" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="weight_kg" class="form-label">Weight (kg)</label>
+                        <input type="number" step="0.1" class="form-control" id="weight_kg" name="weight_kg" required>
+                    </div>
+                </div>
+                
+                <!-- Health Goals -->
+                <div class="col-md-6">
+                    <h3>Health Goals</h3>
+                    
+                    <div class="mb-3">
+                        <label for="activity_level" class="form-label">Activity Level</label>
+                        <select class="form-select" id="activity_level" name="activity_level" required>
+                            <option value="sedentary">Sedentary (little or no exercise)</option>
+                            <option value="light">Light (light exercise 1-3 days/week)</option>
+                            <option value="moderate">Moderate (moderate exercise 3-5 days/week)</option>
+                            <option value="active">Active (hard exercise 6-7 days/week)</option>
+                            <option value="very_active">Very Active (physical job or twice daily training)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="diet_type" class="form-label">Diet Type</label>
+                        <select class="form-select" id="diet_type" name="diet_type" required>
+                            <option value="non-vegetarian">Non-Vegetarian</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="goal" class="form-label">Weight Goal</label>
+                        <select class="form-select" id="goal" name="goal" required>
+                            <option value="maintain weight">Maintain Weight</option>
+                            <option value="lose weight">Lose Weight</option>
+                            <option value="gain weight">Gain Weight</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Medical History -->
+                <div class="col-md-6">
+                    <h3>Medical History</h3>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Do you have any of these conditions?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="hypertension" name="condition" value="hypertension">
+                            <label class="form-check-label" for="hypertension">Hypertension (High Blood Pressure)</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="diabetes" name="condition" value="diabetes">
+                            <label class="form-check-label" for="diabetes">Diabetes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="heart_disease" name="condition" value="heart_disease">
+                            <label class="form-check-label" for="heart_disease">Heart Disease</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="asthma" name="condition" value="asthma">
+                            <label class="form-check-label" for="asthma">Asthma</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="allergies" class="form-label">Allergies (comma separated)</label>
+                        <input type="text" class="form-control" id="allergies" name="allergies" placeholder="e.g., peanuts, soy, shellfish">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="family_history" class="form-label">Family History (comma separated)</label>
+                        <input type="text" class="form-control" id="family_history" name="family_history" placeholder="e.g., diabetes, heart disease">
+                    </div>
+                </div>
+                
+                <!-- Lifestyle -->
+                <div class="col-md-6">
+                    <h3>Lifestyle</h3>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Smoker</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="smoker" id="smoker_yes" value="true">
+                            <label class="form-check-label" for="smoker_yes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="smoker" id="smoker_no" value="false" checked>
+                            <label class="form-check-label" for="smoker_no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="alcohol_consumption" class="form-label">Alcohol Consumption</label>
+                        <select class="form-select" id="alcohol_consumption" name="alcohol_consumption" required>
+                            <option value="none">None</option>
+                            <option value="occasional">Occasional</option>
+                            <option value="frequent">Frequent</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="sleep_hours" class="form-label">Average Sleep (hours)</label>
+                        <input type="number" step="0.5" class="form-control" id="sleep_hours" name="sleep_hours" value="7.5" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="stress_level" class="form-label">Stress Level</label>
+                        <select class="form-select" id="stress_level" name="stress_level" required>
+                            <option value="low">Low</option>
+                            <option value="moderate">Moderate</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="hydration_level" class="form-label">Hydration Level</label>
+                        <select class="form-select" id="hydration_level" name="hydration_level" required>
+                            <option value="low">Low</option>
+                            <option value="average">Average</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Food Preferences -->
+                <div class="col-md-12">
+                    <h3>Food Preferences</h3>
+                    
+                    <div class="mb-3">
+                        <label for="cuisine" class="form-label">Preferred Cuisines (comma separated)</label>
+                        <input type="text" class="form-control" id="cuisine" name="cuisine" placeholder="e.g., Italian, Chinese, Mediterranean">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="spice_tolerance" class="form-label">Spice Tolerance</label>
+                        <select class="form-select" id="spice_tolerance" name="spice_tolerance" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="meal_frequency" class="form-label">Meals per Day</label>
+                        <input type="number" class="form-control" id="meal_frequency" name="meal_frequency" value="3" required>
+                    </div>
+                </div>
+                
+                <!-- Hidden field to store conditions as JSON -->
+                <input type="hidden" id="diseases" name="diseases" value="[]">
+            </div>
+            
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Process checkboxes into JSON for diseases
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const checkboxes = document.querySelectorAll('input[name="condition"]:checked');
+            const diseases = [];
+            
+            checkboxes.forEach(function(checkbox) {
+                diseases.push({
+                    name: checkbox.value,
+                    diagnosed_on: new Date().toISOString().split('T')[0], // Use today as default
+                    medication: "" // Empty by default
+                });
+            });
+            
+            document.getElementById('diseases').value = JSON.stringify(diseases);
+        });
+    </script>
+</body>
+</html>

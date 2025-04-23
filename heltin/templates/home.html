@@ -1,0 +1,169 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Unified Web App</title>
+</head>
+<body>
+    <h1>Welcome to the Unified Web App</h1>
+    <nav>
+        <a href="/health">Health-O-Meter</a>
+        <a href="/muscle">Muscle AI</a>
+    </nav>
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Unified Web App</title>
+</head>
+<body>
+    <h1>Welcome to the Unified Web App</h1>
+    <nav>
+        <a href="{{ url_for('health.index') }}">Health-O-Meter</a>
+        <a href="{{ url_for('muscle.index') }}">Muscle AI</a>
+    </nav>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Web App</title>
+    <style>
+        /* Animated Gradient Background */
+        body {
+            animation: fadeIn 1.5s ease-in-out, gradientBG 15s ease infinite;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Heading slide-in animation */
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 3rem;
+            margin-top: 50px;
+            animation: slideIn 1s forwards;
+            opacity: 0;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Navigation styling with hover effects */
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        nav a {
+            margin: 0 15px;
+            padding: 10px 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            border: 2px solid #fff;
+            transform: scale(1.1);
+        }
+        /* Card container styling */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            width: 300px;
+            margin: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: cardFadeIn 0.8s forwards;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 16px rgba(0,0,0,0.2);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-content h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .card-content p {
+            color: #666;
+            margin: 10px 0;
+        }
+        .card-content a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        @keyframes cardFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Unified Web App</h1>
+    <nav>
+        <a href="{{ url_for('health.index') }}">Health-O-Meter</a>
+        <a href="{{ url_for('muscle.index') }}">Muscle AI</a>
+    </nav>
+    <div class="card-container">
+        <div class="card" style="animation-delay: 0.3s;">
+            <img src="{{ url_for('static', filename='images/shakeit.gif') }}" alt="Healthy Vibes">
+            <div class="card-content">
+                <h2>Health-O-Meter</h2>
+                <p>Discover healthy recipes, nutrition tips, and a lifestyle that energizes you.</p>
+                <a href="{{ url_for('health.index') }}">Learn More</a>
+            </div>
+        </div>
+        <div class="card" style="animation-delay: 0.6s;">
+            <img src="{{ url_for('static', filename='images/workout.gif') }}" alt="Workout Action">
+            <div class="card-content">
+                <h2>Muscle AI</h2>
+                <p>Dive into training routines, strength tips, and workouts designed for muscle gain.</p>
+                <a href="{{ url_for('muscle.index') }}">Learn More</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Additional interactivity can be added here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Future enhancements like dynamic content loading can be implemented.
+            console.log("Dynamic elements loaded");
+        });
+    </script>
+</body>
+</html>

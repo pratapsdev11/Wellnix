@@ -28,9 +28,7 @@ build/
 outputs/
 uploads/
 
-# Static and template cache
-static/
-templates/
+
 
 # System files
 .DS_Store
