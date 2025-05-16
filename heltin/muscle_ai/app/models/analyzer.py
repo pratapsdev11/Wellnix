@@ -81,7 +81,7 @@
 #         }
 # app/models/analyzer.py
 import numpy as np
-
+import math
 class MovementAnalyzer:
     def __init__(self, exercise_type):
         self.exercise_type = exercise_type
@@ -202,12 +202,12 @@ class MovementAnalyzer:
     def get_quality_assessment(value):
         """Return a qualitative assessment based on the metric value"""
         if value >= 0.9:
-            return value*10
+            return math.ceil(value*10)
         elif value >= 0.8:
-            return value*10
+            return math.ceil(value*10)
         elif value >= 0.7:
-            return value*10
+            return math.ceil(value*10)
         elif value >= 0.6:
-            return value*10
+            return math.ceil(value*10)
         else:
-            return value*10
+            return math.ceil(value*10)

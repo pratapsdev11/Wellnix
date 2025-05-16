@@ -1,392 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JIM - AI Fitness Form Analysis</title>
-    <style>
-        :root {
-            --primary: #3498db;
-            --secondary: #2ecc71;
-            --accent: #e74c3c;
-            --dark: #333;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --border: #dee2e6;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: #f0f2f5;
-            transition: background-color 0.3s;
-        }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .intro {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .intro img {
-            max-width: 300px;
-            border-radius: 8px;
-        }
-
-        .intro-text h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .intro-text p {
-            font-size: 1.1rem;
-            color: var(--gray);
-        }
-
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .form-section {
-            padding: 1rem 0;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        select, input[type="file"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            background-color: white;
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        .message {
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .results-container {
-            margin-top: 2rem;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .video-container video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .analysis-results {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .score-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        .metric-row {
-            margin-bottom: 1rem;
-        }
-
-        .metric-bar {
-            height: 10px;
-            background-color: #e9ecef;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-
-        .dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .card {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
-        }
-
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(0,0,0,0.3);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            z-index: 1000;
-        }
-
-        @media (max-width: 768px) {
-            .intro {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌓</button>
-
-    <header>
-        <h1>JIM</h1>
-        <p>AI Fitness Form Analysis</p>
-    </header>
-
-    <div class="container">
-        <div class="card">
-            <div class="intro">
-                <img src="{{ url_for('muscle.static', filename='bhaibhai.jpg') }}" alt="Fitness Image">
-                <div class="intro-text">
-                    <h2>Improve Your Form</h2>
-                    <p>Upload a video or use your webcam to analyze your exercise form with AI-powered technology.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="tabs">
-                <button class="tab active" onclick="switchTab('upload')">Upload Video</button>
-                <button class="tab" onclick="switchTab('live')">Live Analysis</button>
-            </div>
-
-            <div id="upload-tab" class="tab-content active">
-                <form method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="video">Choose video:</label>
-                        <input type="file" name="video" id="video" accept="video/*" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exercise_type">Choose exercise type:</label>
-                        <select name="exercise_type" id="exercise_type" required>
-                            <option value="regular_deadlift">Regular Deadlift</option>
-                            <option value="sumo_deadlift">Sumo Deadlift</option>
-                            <option value="squat">Squat</option>
-                            <option value="romanian_deadlift">Romanian Deadlift</option>
-                            <option value="zercher_squat">Zercher Squat</option>
-                            <option value="front_squat">Front Squats</option>
-                        </select>
-                    </div>
-
-                    <button type="submit">Upload & Analyze</button>
-                </form>
-            </div>
-
-            <div id="live-tab" class="tab-content">
-                <form method="POST" action="/live">
-                    <div class="form-group">
-                        <label for="live_exercise_type">Choose exercise type:</label>
-                        <select name="live_exercise_type" id="live_exercise_type" required>
-                            <option value="regular_deadlift">Regular Deadlift</option>
-                            <option value="sumo_deadlift">Sumo Deadlift</option>
-                            <option value="squat">Squat</option>
-                            <option value="romanian_deadlift">Romanian Deadlift</option>
-                            <option value="zercher_squat">Zercher Squat</option>
-                            <option value="front_squat">Front Squats</option>
-                        </select>
-                    </div>
-                    <button type="submit" style="background-color: var(--secondary);">Start Live Analysis</button>
-                </form>
-            </div>
-        </div>
-
-        {% if message %}
-        <div class="message {% if 'Error' in message %}error{% endif %}">{{ message }}</div>
-        {% endif %}
-
-        {% if video_url %}
-        <div class="card results-container">
-            <h2>Analysis Results</h2>
-            <div class="results-grid">
-                <div class="video-container">
-                    <video controls>
-                        <source src="{{ video_url }}" type="video/mp4">
-                    </video>
-                </div>
-                {% if movement_analysis %}
-                <div class="analysis-results">
-                    <div class="score-circle">
-                        {{ movement_analysis.score }}/10
-                    </div>
-                    <div class="metric-row">
-                        <span>Repetitions: {{ movement_analysis.metrics.repetitions }}</span>
-                    </div>
-                    {% for label, value in movement_analysis.metrics.movement_assessment.items() %}
-                    <div class="metric-row">
-                        <span>{{ label.replace('_', ' ').title() }}</span>
-                        <div class="metric-bar">
-                            <div class="bar-fill" style="width: {{ value * 10 }}%"></div>
-                        </div>
-                        <span>{{ value }}/10</span>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if request.path == '/live' %}
-        <div class="card">
-            <h2>Live Analysis</h2>
-            <div class="live-stream">
-                <img src="{{ url_for('muscle.live') }}" alt="Live stream">
-            </div>
-        </div>
-        {% endif %}
-    </div>
-
-    <footer>
-        <p>&copy; 2025 JIM - AI Fitness Form Analysis</p>
-    </footer>
-
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId + '-tab').classList.add('active');
-            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('darkMode') === 'true') {
-                document.body.classList.add('dark-mode');
-            }
-        });
-    </script>
-</body>
-
-</html> -->
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -737,6 +349,722 @@
     <footer>
         <p>&copy; 2025 JIM - AI Fitness Form Analysis</p>
     </footer>
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JIM - AI Fitness Form Analysis</title>
+        <!-- Add favicon links -->
+    <link rel="icon" type="image/png" href="/static/images/phon.png">
+    <link rel="apple-touch-icon" href="/static/images/phon.png">
+    
+    <style>
+        :root {
+            /* Light theme colors */
+            --primary: #3a86ff;
+            --primary-light: #6ba4ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --text: #212529;
+            --text-light: #6c757d;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+            --success: #28a745;
+            --error: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            /* Dark theme colors */
+            --primary: #3a86ff;
+            --primary-light: #6ba4ff;
+            --secondary: #9d4edd;
+            --accent: #ff006e;
+            --text: #f8f9fa;
+            --text-light: #adb5bd;
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            --success: #28a745;
+            --error: #dc3545;
+            --warning: #ffc107;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            transition: var(--transition);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro img {
+            max-width: 350px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .intro img:hover {
+            transform: scale(1.02);
+        }
+
+        .intro-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .intro-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab:hover:not(.active) {
+            color: var(--text);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        select, input[type="file"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            font-size: 1rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        select:focus, input[type="file"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #9d4edd;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            font-weight: 500;
+        }
+
+        .message.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .message.warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .results-container {
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #000;
+        }
+
+        .analysis-results {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 1.5rem;
+            font-size: 3.5rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.3);
+        }
+
+        .metric-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-row span:first-child {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .metric-bar {
+            height: 10px;
+            background-color: var(--border);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        /* Loader styles */
+        .loader-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .loader-gif {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(58, 134, 255, 0.5);
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 1.3rem;
+            text-align: center;
+            max-width: 300px;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-light);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .intro {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .intro img {
+                max-width: 100%;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .tab {
+                border-bottom: 2px solid var(--border);
+                border-radius: 0;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .score-circle {
+                width: 270px;
+                height: 270px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                margin: 0 auto 2rem;
+                font-size: 4.5rem; /* Increased from 0.09rem to be visible */
+                font-weight: 700;
+                box-shadow: 0 8px 20px rgba(58, 134, 255, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .score-circle::before {
+                content: '/10';
+                position: absolute;
+                font-size: 1.8rem;
+                bottom: 30%;
+                right: 30%;
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .dark-mode-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Loader element -->
+    <div class="loader-container">
+        <img src="{{ url_for('muscle.static', filename='kendrick-kendricklamar.gif') }}" class="loader-gif" alt="Loading animation">
+        <div class="loader-text">Analyzing your form... This may take a moment</div>
+    </div>
+
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <span id="theme-icon">🌓</span>
+    </button>
+
+    <header>
+        <h1>JIM</h1>
+        <p>AI-Powered Fitness Form Analysis</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="intro">
+                <img src="{{ url_for('muscle.static', filename='bhaibhai.jpg') }}" alt="Fitness training illustration">
+                <div class="intro-text">
+                    <h2>Perfect Your Form With AI</h2>
+                    <p>Get real-time feedback on your exercise technique using advanced computer vision. Upload a video or use your webcam to receive personalized analysis and improve your workout performance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('upload')">Upload Video</button>
+                <button class="tab" onclick="switchTab('live')">Live Analysis</button>
+            </div>
+
+            <div id="upload-tab" class="tab-content active">
+                <form method="POST" enctype="multipart/form-data" id="upload-form">
+                    <div class="form-group">
+                        <label for="video">Select your workout video</label>
+                        <input type="file" name="video" id="video" accept="video/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exercise_type">Choose exercise</label>
+                        <select name="exercise_type" id="exercise_type" required>
+                            <option value="" disabled selected>Select an exercise</option>
+                            <option value="regular_deadlift">Regular Deadlift</option>
+                            <option value="sumo_deadlift">Sumo Deadlift</option>
+                            <option value="squat">Squat</option>
+                            <option value="romanian_deadlift">Romanian Deadlift</option>
+                            <option value="zercher_squat">Zercher Squat</option>
+                            <option value="front_squat">Front Squat</option>
+                        </select>
+                    </div>
+
+                    <button type="submit">
+                        <span id="upload-icon">📤</span> Upload & Analyze
+                    </button>
+                </form>
+            </div>
+
+            <div id="live-tab" class="tab-content">
+                <form method="POST" action="/muscle/live" id="live-form">
+                    <div class="form-group">
+                        <label for="live_exercise_type">Choose exercise</label>
+                        <select name="live_exercise_type" id="live_exercise_type" required>
+                            <option value="" disabled selected>Select an exercise</option>
+                            <option value="regular_deadlift">Regular Deadlift</option>
+                            <option value="sumo_deadlift">Sumo Deadlift</option>
+                            <option value="squat">Squat</option>
+                            <option value="romanian_deadlift">Romanian Deadlift</option>
+                            <option value="zercher_squat">Zercher Squat</option>
+                            <option value="front_squat">Front Squat</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-secondary">
+                        <span id="live-icon">🎥</span> Start Live Session
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if message %}
+            <div class="message {% if 'Error' in message %}error{% elif 'Warning' in message %}warning{% endif %}">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {% if video_url %}
+        <div class="card results-container">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Your Analysis Results</h2>
+            <div class="results-grid">
+                <div class="video-container">
+                    <video controls poster="{{ url_for('muscle.static', filename='video-thumbnail.jpg') }}">
+                        <source src="{{ video_url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% if movement_analysis %}
+                <div class="analysis-results">
+                    <div class="score-circle">
+                        <span>{{ movement_analysis.score }}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Repetitions</span>
+                        <div style="font-size: 1.2rem; font-weight: 600; color: var(--primary);">
+                            {{ movement_analysis.metrics.repetitions }}
+                        </div>
+                    </div>
+                    {% for label, value in movement_analysis.metrics.movement_assessment.items() %}
+                    <div class="metric-row">
+                        <span>{{ label.replace('_', ' ')|title }}</span>
+                        <div class="metric-bar">
+                            <div class="bar-fill" style="width: {{ value * 10 }}%"></div>
+                        </div>
+                        <span style="font-weight: 600; color: var(--text);">{{ value }}/10</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if request.path == '/muscle/live' %}
+        <div class="card">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Live Analysis Feed</h2>
+            <div class="live-stream">
+                <img src="{{ url_for('muscle.live') }}" alt="Live analysis feed" style="width: 100%; border-radius: 8px;">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 JIM - AI Fitness Form Analysis | <a href="#" style="color: var(--primary); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--primary); text-decoration: none;">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        // Theme management
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            // Update theme icon
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        }
+
+        // Initialize theme
+        function initTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const storedTheme = localStorage.getItem('darkMode');
+            
+            // Use stored theme if available, otherwise use system preference
+            if (storedTheme === 'true' || (storedTheme === null && prefersDark)) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-icon').textContent = '🌙';
+            } else {
+                document.getElementById('theme-icon').textContent = '☀️';
+            }
+        }
+
+        // Tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Form submission with loader
+        function setupFormSubmission() {
+            const forms = [
+                document.getElementById('upload-form'),
+                document.getElementById('live-form')
+            ];
+            
+            forms.forEach(form => {
+                if (form) {
+                    form.addEventListener('submit', function() {
+                        const loader = document.querySelector('.loader-container');
+                        if (loader) {
+                            loader.style.display = 'flex';
+                            
+                            // Change button state
+                            const submitBtn = this.querySelector('button[type="submit"]');
+                            if (submitBtn) {
+                                submitBtn.disabled = true;
+                                submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            setupFormSubmission();
+            
+            // Add animation to cards when they come into view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+
+        // System theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (localStorage.getItem('darkMode') === null) {
+                if (e.matches) {
+                    document.body.classList.add('dark-mode');
+                    document.getElementById('theme-icon').textContent = '🌙';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    document.getElementById('theme-icon').textContent = '☀️';
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

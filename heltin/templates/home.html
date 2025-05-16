@@ -1,168 +1,622 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Unified Web App</title>
-</head>
-<body>
-    <h1>Welcome to the Unified Web App</h1>
-    <nav>
-        <a href="/health">Health-O-Meter</a>
-        <a href="/muscle">Muscle AI</a>
-    </nav>
-</body>
-</html> -->
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Unified Web App</title>
-</head>
-<body>
-    <h1>Welcome to the Unified Web App</h1>
-    <nav>
-        <a href="{{ url_for('health.index') }}">Health-O-Meter</a>
-        <a href="{{ url_for('muscle.index') }}">Muscle AI</a>
-    </nav>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unified Web App</title>
+    <title>Wellnix| Balanced Fitness Journey</title>
+    <!-- Add favicon links -->
+    <link rel="icon" type="image/png" href="/static/images/phon.png">
+    <link rel="apple-touch-icon" href="/static/images/phon.png">
     <style>
-        /* Animated Gradient Background */
-        body {
-            animation: fadeIn 1.5s ease-in-out, gradientBG 15s ease infinite;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            margin: 0;
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #10b981;
+            --accent-color: #f97316;
+            --dark-bg: #1f2937;
+            --light-bg: #f9fafb;
+            --text-dark: #1f2937;
+            --text-light: #f9fafb;
         }
+        
+        /* Base Styling */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f6f7f9 0%, #e9edf2 100%);
+            animation: fadeIn 1s ease-in-out;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        
+        /* Header Styling */
+        header {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        /* Heading slide-in animation */
-        h1 {
-            text-align: center;
-            color: #fff;
-            font-size: 3rem;
-            margin-top: 50px;
-            animation: slideIn 1s forwards;
-            opacity: 0;
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Navigation styling with hover effects */
-        nav {
+        
+        .nav-container {
             display: flex;
-            justify-content: center;
-            margin-top: 20px;
+            justify-content: space-between;
+            align-items: center;
         }
-        nav a {
-            margin: 0 15px;
-            padding: 10px 15px;
-            color: #fff;
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
             text-decoration: none;
-            font-size: 1.2rem;
-            border: 2px solid transparent;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
             transition: all 0.3s ease;
         }
-        nav a:hover {
-            border: 2px solid #fff;
-            transform: scale(1.1);
+        
+        nav a:hover, nav a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--secondary-color);
         }
-        /* Card container styling */
-        .card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 40px auto;
-            max-width: 1000px;
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("/api/placeholder/1200/600") center/cover no-repeat;
+            color: var(--text-light);
+            padding: 5rem 0;
+            text-align: center;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            width: 300px;
-            margin: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: cardFadeIn 0.8s forwards;
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
         }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 16px rgba(0,0,0,0.2);
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1.5s ease-out;
         }
-        .card-content {
-            padding: 15px;
-        }
-        .card-content h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #333;
-        }
-        .card-content p {
-            color: #666;
-            margin: 10px 0;
-        }
-        .card-content a {
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
             text-decoration: none;
-            color: #007BFF;
             font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
         }
-        @keyframes cardFadeIn {
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+        
+        /* Philosophy Section */
+        .philosophy {
+            padding: 5rem 0;
+            background-color: var(--light-bg);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: var(--secondary-color);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .philosophy-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .philosophy-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary-color);
+        }
+        
+        .philosophy-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #eef2f7 0%, #d4e0ed 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+        
+        .service-card:nth-child(1) { animation-delay: 0.3s; }
+        .service-card:nth-child(2) { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .service-img {
+            height: 200px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .service-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-outline {
+            display: inline-block;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+        
+        .testimonials .section-header h2 {
+            color: var(--text-light);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 0;
+            left: 1rem;
+            font-size: 5rem;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .btn-light {
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-col li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Unified Web App</h1>
-    <nav>
-        <a href="{{ url_for('health.index') }}">Health-O-Meter</a>
-        <a href="{{ url_for('muscle.index') }}">Muscle AI</a>
-    </nav>
-    <div class="card-container">
-        <div class="card" style="animation-delay: 0.3s;">
-            <img src="{{ url_for('static', filename='images/shakeit.gif') }}" alt="Healthy Vibes">
-            <div class="card-content">
-                <h2>Health-O-Meter</h2>
-                <p>Discover healthy recipes, nutrition tips, and a lifestyle that energizes you.</p>
-                <a href="{{ url_for('health.index') }}">Learn More</a>
-            </div>
-        </div>
-        <div class="card" style="animation-delay: 0.6s;">
-            <img src="{{ url_for('static', filename='images/workout.gif') }}" alt="Workout Action">
-            <div class="card-content">
-                <h2>Muscle AI</h2>
-                <p>Dive into training routines, strength tips, and workouts designed for muscle gain.</p>
-                <a href="{{ url_for('muscle.index') }}">Learn More</a>
-            </div>
-        </div>
+    <header>
+    <div class="container nav-container">
+        <a href="#" class="logo" style="display: flex; align-items: center;">
+            <img src="/static/images/wellnix.png" alt="WELLNIX Logo" style="height: 130px; margin-right: 10px;">
+            
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="{{ url_for('health.index') }}">Nutri AI</a></li>
+                <li><a href="{{ url_for('muscle.index') }}">Muscle AI</a></li>
+                <li><a href="#philosophy">Our Philosophy</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </div>
+</header>
+
+
+    <section class="hero">
+        <div class="container">
+            <h1>Your Journey to Balanced Fitness Starts Here</h1>
+            <p>We believe fitness isn't just about intense workouts or strict diets—it's about creating a sustainable lifestyle that balances physical strength, nutritional wellness, and mental health.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('health.index') }}" class="btn">Explore Nutrition</a>
+                <a href="{{ url_for('muscle.index') }}" class="btn btn-secondary">Discover Workouts</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Fitness Philosophy</h2>
+                <p>At Wellnix, we approach fitness differently. Here's what we believe:</p>
+            </div>
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <h3>Balance Over Extremes</h3>
+                    <p>We don't believe in extreme diets or punishing workout regimens. True wellness comes from finding the right balance that works for your unique body and lifestyle. Consistency in moderate, enjoyable activities yields better long-term results than short-term extreme measures.</p>
+                </div>
+                <div class="philosophy-card">
+                    <h3>Science-Backed Approach</h3>
+                    <p>Our recommendations are grounded in scientific research, not fads or trends. We use data-driven methods through our Nutri AI and Muscle AI tools to help you make informed decisions about your fitness journey based on what actually works.</p>
+                </div>
+                <div class="philosophy-card">
+                    <h3>Holistic Wellness</h3>
+                    <p>Physical fitness is just one piece of the puzzle. We emphasize the connection between nutrition, exercise, sleep, stress management, and mental well-being. True fitness integrates all aspects of health for sustainable results and genuine happiness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Tailored solutions to support every aspect of your fitness journey</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="static/images/nutri.png" alt="Nutri AI">
+                    </div>
+                    <div class="service-content">
+                        <h3>Nutri AI</h3>
+                        <p>Discover personalized nutrition guidance, meal planning, and health tracking tools that make eating well simple and enjoyable. Our Nutri AI analyzes your unique needs and preferences to create sustainable nutrition plans.</p>
+                        <a href="{{ url_for('health.index') }}" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="static/images/23.png" alt="Muscle AI">
+                    </div>
+                    <div class="service-content">
+                        <h3>Muscle AI</h3>
+                        <p>Experience intelligent workout programming that adapts to your progress, preferences, and goals. Our Muscle AI tool creates effective training routines based on proven exercise science for optimal strength and muscle development.</p>
+                        <a href="{{ url_for('muscle.index') }}" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Hear from people who transformed their lives with our balanced approach</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The balanced approach at Wellnix completely changed my relationship with fitness. For the first time, I don't feel guilty about my food choices, and I actually look forward to my workouts!"
+                    </div>
+                    <div class="testimonial-author">- Jamie C.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The Muscle AI program helped me build strength without spending endless hours in the gym. The personalized approach made all the difference in keeping me consistent and seeing real results."
+                    </div>
+                    <div class="testimonial-author">- Alex R.</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Nutri AI transformed my understanding of nutrition. I've lost 30 pounds without ever feeling like I was on a diet. This is truly sustainable weight management."
+                    </div>
+                    <div class="testimonial-author">- Taylor M.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Start Your Balanced Fitness Journey Today</h2>
+            <p>Whether you're focused on building strength, improving nutrition, or creating holistic wellness, we have the tools and guidance to help you succeed.</p>
+            <div>
+                <a href="{{ url_for('health.index') }}" class="btn btn-light">Explore Nutri AI</a>
+                <a href="{{ url_for('muscle.index') }}" class="btn">Discover Muscle AI</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Wellnix</h3>
+                    <p>Your partner in balanced, sustainable fitness and wellness.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="{{ url_for('health.index') }}">Nutri AI</a></li>
+                        <li><a href="{{ url_for('muscle.index') }}">Muscle AI</a></li>
+                        <li><a href="#philosophy">Our Philosophy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for fitness tips, updates, and exclusive content.</p>
+                    <!-- Newsletter form would go here -->
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Wellnix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Additional interactivity can be added here
         document.addEventListener('DOMContentLoaded', function() {
-            // Future enhancements like dynamic content loading can be implemented.
-            console.log("Dynamic elements loaded");
+            // Add smooth scrolling to all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    if(this.getAttribute('href') !== "#") {
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Future enhancements can be added here
+            console.log("Interactive elements loaded");
         });
     </script>
 </body>

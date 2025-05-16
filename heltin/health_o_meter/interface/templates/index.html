@@ -3,55 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health-O-Meter</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Health-O-Meter | Your Personal Food Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        .jumbotron {
-            padding: 2rem;
-            background-color: #e9ecef;
-            border-radius: 0.3rem;
-            margin-bottom: 2rem;
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f97316;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f6f7f9 0%, #e9edf2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8rem 0;
+            border-radius: 0 0 3rem 3rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Feature Cards */
+        .feature-card {
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+        }
+        
+        .feature-card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(16, 185, 129, 0.2));
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            background: var(--glass);
+            padding: 3rem;
+            margin: 3rem 0;
+            border-radius: 1.5rem;
+        }
+        
+        .step-container {
+            transition: all 0.4s ease;
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        
+        .step-container:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.6);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .step-container:hover .step-number {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Floating CTA Button */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .btn-float {
+            animation: float 3s ease-in-out infinite;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .btn-float:hover {
+            background: rgba(255,255,255,0.9);
+            color: var(--primary);
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .display-4 {
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 5rem 0;
+                border-radius: 0 0 2rem 2rem;
+            }
+            
+            .how-it-works {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="jumbotron text-center">
-            <h1 class="display-4">Health-O-Meter</h1>
-            <p class="lead">Your personal food consumability assistant</p>
-            <hr class="my-4">
-            <p>Scan nutrition labels, enter your health profile, and get personalized recommendations</p>
-            <a class="btn btn-primary btn-lg" href="{{ url_for('profile') }}" role="button">Get Started</a>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center hero-content">
+            <h1 class="display-4 fw-bold mb-4">Health-O-Meter</h1>
+            <p class="lead mx-auto mb-4 fs-4" style="max-width: 700px;">
+                Your personal food guide for making healthy choices based on your unique health profile
+            </p>
+            <a href="{{ url_for('profile') }}" class="btn btn-light btn-lg btn-float">
+                <i class="fas fa-arrow-right me-2"></i>Get Started
+            </a>
         </div>
-        
-        <div class="row">
+    </div>
+    
+    <!-- Feature Cards -->
+    <div class="container mb-5">
+        <div class="row g-4">
             <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 1: Enter Your Profile</h5>
-                        <p class="card-text">Provide your health parameters and medical history for personalized results.</p>
+                <div class="feature-card glass-card p-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-card-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Personalized Profile</h3>
+                        <p class="text-muted mb-0">
+                            Create your unique health profile with detailed parameters that matter to your health journey.
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 2: Upload Nutrition Label</h5>
-                        <p class="card-text">Take a photo of a nutrition label or upload an existing image.</p>
+                <div class="feature-card glass-card p-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-card-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Smart Scanner</h3>
+                        <p class="text-muted mb-0">
+                            Instantly analyze nutrition labels with our advanced scanning technology.
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Step 3: Get Your Score</h5>
-                        <p class="card-text">Receive a personalized consumability score and recommendations.</p>
+                <div class="feature-card glass-card p-0">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Detailed Results</h3>
+                        <p class="text-muted mb-0">
+                            Get a personalized consumability score and recommendations based on your health needs.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- How It Works Section -->
+    <div class="container">
+        <div class="how-it-works glass-card">
+            <h2 class="text-center mb-5">How It Works</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="step-container text-center">
+                        <div class="step-number text-white mx-auto mb-4 d-flex align-items-center justify-content-center">
+                            1
+                        </div>
+                        <h4 class="mb-3">Create Your Profile</h4>
+                        <p class="text-muted mb-4">
+                            Enter your health parameters, conditions, and preferences to get personalized results.
+                        </p>
+                        <img src="/static/images/profile-step.jpg" alt="Profile setup" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-container text-center">
+                        <div class="step-number text-white mx-auto mb-4 d-flex align-items-center justify-content-center">
+                            2
+                        </div>
+                        <h4 class="mb-3">Scan Food Labels</h4>
+                        <p class="text-muted mb-4">
+                            Take a clear photo of a nutrition label or upload an existing image for analysis.
+                        </p>
+                        <img src="/static/images/scan-step.jpg" alt="Scanning illustration" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="step-container text-center">
+                        <div class="step-number text-white mx-auto mb-4 d-flex align-items-center justify-content-center">
+                            3
+                        </div>
+                        <h4 class="mb-3">Get Your Results</h4>
+                        <p class="text-muted mb-4">
+                            Receive a detailed analysis with personalized recommendations for your health needs.
+                        </p>
+                        <img src="/static/images/results-step.jpg" alt="Results illustration" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add intersection observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = (elements) => {
+                elements.forEach((element) => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('animate');
+                    }
+                });
+            };
+            
+            const animatedElements = document.querySelectorAll('.feature-card, .step-container');
+            window.addEventListener('scroll', () => animateOnScroll(animatedElements));
+            animateOnScroll(animatedElements); // Initialize
+        });
+    </script>
 </body>
 </html>
