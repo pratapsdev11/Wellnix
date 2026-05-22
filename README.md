@@ -1,5 +1,5 @@
 # 🌌 Wellnix | AI-Powered Unified Health & Fitness Ecosystem
-Welcome to **Wellnix**, a premium, production-grade web ecosystem that bridges the gap between scientific nutrition tracking and advanced biomechanical fitness coaching. Wellnix brings two state-of-the-art artificial intelligence modules together under a beautifully designed, responsive Flask web application: **Nutri AI** (Health-O-Meter) and **Muscle AI** (JIM).
+Welcome to **Wellnix**, a web ecosystem that bridges the gap between scientific nutrition tracking and advanced biomechanical fitness coaching. Wellnix brings two state-of-the-art artificial intelligence modules together under a beautifully designed, responsive Flask web application: **Nutri AI** (Health-O-Meter) and **Muscle AI** (JIM).
 Whether scanning food packaging for personal health safety or analyzing training form down to individual joint coordinates, Wellnix provides immediate, data-driven, science-backed guidance to empower your wellness journey.
 ---
 ## 🌟 Key Pillars of Wellnix
